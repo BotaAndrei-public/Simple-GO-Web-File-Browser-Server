@@ -54,15 +54,22 @@ func pingHandler (w http.ResponseWriter, r *http.Request) {
 	// Get local PC address
 	var myIP string
 	localAddress, ok := r.Context().Value(http.LocalAddrContextKey).(net.Addr)
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	if ok {
 		myIP,_,_ = net.SplitHostPort(localAddress.String())
 	}else{
+		
+		fmt.Fprint(w, "<h2> There mite be an server probem</h2>")
 		myIP = "Not detect your IP-X.X.X.X"
+	
 	}
 	
 	//Send IP
-	fmt.Fprint(w, "IP-"+myIP)
-
+	fmt.Fprint(w, "<h2>Server is UP</h2>")
+	fmt.Fprint(w, "<p>IP: "+myIP+"</p>")
+	
+	// Button -> Home
+	fmt.Fprint(w, `<br><a href="/" style="padding: 10px 20px; background: #333; color: #fff; text-decoration: none; border-radius: 4px; font-family: sans-serif;">Înapoi la Home</a>`)
 }
 
 

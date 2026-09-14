@@ -3,33 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Add Note</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h2>Add a note</h2>
-    <div>
-        <form method="POST" action="/form"> 
-        <div>
-            <label for="">Name:</label><br>
-            <input name = "name" type = "text" value ="" placeholder="Name...">
-        </div>
-       
-        <div>
-             <label for="">Address:</label><br>
-            <input name = "address" type = "text" value ="" placeholder="Address...">
-            
-        </div>
-        
-        <div>
-            <label for="">Note:</label><br>
-            <textarea name = "text" type = "text" value ="" placeholder="text..."> </textarea>
-        </div>
-        
-        <div>
-            <input type="submit" value="submit">            
-        </div>
 
+    <nav class="navbar">
+        <div class="nav-links">
+            <a href="form.html">Add Note +</a>
+            <a href="/ping">Ping Server</a>
+        </div>
+        <a href="/" class="nav-home">Home</a>
+    </nav>
+
+    <div class="container">
+        <h2>Add a New Note</h2>
+        <form method="POST" action="/form"> 
+            <div>
+                <label>Name:</label>
+                <input name="name" type="text" placeholder="Name...">
+            </div>
+           
+            <div>
+                <label>Address:</label>
+                <input name="address" type="text" placeholder="Address...">
+            </div>
+            
+            <div>
+                <label>Note:</label>
+                <textarea name="text" placeholder="Text..."></textarea>
+            </div>
+            
+            <div>
+                <input type="submit" value="Submit">            
+            </div>
         </form>
     </div>
+
 </body>
 </html>
+
