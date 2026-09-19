@@ -80,9 +80,27 @@ func main() {
 	http.HandleFunc("/form", formHandler)
 	http.HandleFunc("/ping", pingHandler)
 	
-	fmt.Printf("Server starting on %v ...\n",PORT)
-	if err := http.ListenAndServe(PORT, nil); err != nil {
+	// ---- FILE MANAGER ROUTES ----
+	http.HandleFunc("/files", FileManagerViewHandler)
+	http.HandleFunc("/fm/upload", UploadHandler)
+	http.HandleFunc("/fm/download", DownloadHandler)
+	http.HandleFunc("/fm/delete", DeleteHandler)
+	http.HandleFunc("/fm/rename", RenameHandler)
+	http.HandleFunc("/fm/mkdir", MkdirHandler)
+	// -----------------------------
+	
+	
+	server := &http.Server{
+		Addr:         PORT,
+		Handler:      nil,              
+		ReadTimeout:  0,                
+		WriteTimeout: 0,                
+	}
+
+	fmt.Printf("Server starting on %v with optimized large file streaming...\n", PORT)
+	if err := server.ListenAndServe(); err != nil {
 		log.Fatal(err)
 	}
+
 	
 }
