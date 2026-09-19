@@ -38,13 +38,38 @@ func FileManagerViewHandler(w http.ResponseWriter, r *http.Request){
 		return
 	}
 
-	//TODO
+	
 	entries, err := os.ReadDir(targetPath)
 	if err != nil {
 		http.Error(w, "Cloud not open directory", http.StatusInternalServerError)
 		return
 	}
+
+	var files []FileItem
+	for _, entry := range entries{
+		files = append(files, FileItem{
+			Name: entry.Name(),
+			IsDir: entry.IsDir(),
+		})
+	}
 	
+	parentDir := ""
+	if requestedDir != ""{
+		parentDir = filepath.Dir(requestedDir)
+		if parentDir == "."{
+			parentDir = ""
+		}
+	}
+	
+	//TODO
+	data := ManagerData{
+		CurrentDir: requestedDir,
+		ParentDir: parentDir,
+		Files: files,
+	}
+
+
+
 
 
 }
