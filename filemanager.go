@@ -125,7 +125,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 	if part.FormName() == "myFile"{
 		filename = part.FileName()
 		srcFile = part
-		//break
+		break
 	}
 
 	}
