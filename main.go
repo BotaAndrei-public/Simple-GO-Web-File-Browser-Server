@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"time"
+	"gopkg.in/ini.v1"
 )
 
 var FILE_NAME string = "server_notes.log"
@@ -50,7 +51,7 @@ func pingHandler (w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	//TODO
+	//TODO -DONE
 	// Get local PC address
 	var myIP string
 	localAddress, ok := r.Context().Value(http.LocalAddrContextKey).(net.Addr)
@@ -74,7 +75,20 @@ func pingHandler (w http.ResponseWriter, r *http.Request) {
 
 
 func main() {
-	PORT := "127.0.0.1:8080"
+
+	// Set fallback port number
+	portNumber := "5820"
+
+	// Load .ini file
+	cfg, err := ini.Load("config.ini")
+	
+	if err == nil {
+		portNumber = cfg.Section("").Key("PORT").MustString("5820")
+	} else {
+		fmt.Println("config.txt not found. Using fallback port: 8080")
+	}
+
+	PORT := "0.0.0.0:" + portNumber
 	fileServer := http.FileServer(http.Dir("./static"))
 	http.Handle("/",fileServer)
 	http.HandleFunc("/form", formHandler)
